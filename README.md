@@ -66,12 +66,32 @@ Follow these steps to set up **SkillBuddyAI** on your local machine:
    Visit: http://127.0.0.1:8000/
  **📊 Project Structure:**
    ```bash
-   SkillBuddyAI/
-    ├── static/                  # Static files (CSS, JS)
-    ├── templates/               # HTML templates
-    ├── skillbuddyai/            # Main Django app
-    ├── db.sqlite3               # Database file (for development)
-    ├── manage.py                # Django management tool
-    ├── requirements.txt         # Python dependencies
-    └── README.md                # Project documentation
--
+      SkillBuddyAI/
+       ├── static/                  # Static files (CSS, JS)
+       ├── templates/               # HTML templates
+       ├── skillbuddyai/            # Main Django app
+       ├── db.sqlite3               # Database file (for development)
+       ├── manage.py                # Django management tool
+       ├── requirements.txt         # Python dependencies
+       └── README.md                # Project documentation
+```
+**🤝 Contributing:**
+Contributions are welcome! Follow these steps:
+	1.	Fork the repository.
+	2.	Create a new branch:
+   ```bash
+       git checkout -b feature-name
+```
+   3.	Commit your changes:
+   ```bash
+     	   git commit -m "Added feature"
+```
+  4. Push to the branch:
+     ```bash
+     git push origin feature-name
+ 5.Open a Pull Request.
+ ---
+ 📧 Contact:
+	•	GitHub: Shani871
+	•	Email: chauhanshani145@gmail.com
+ 
