@@ -1,14 +1,18 @@
+
+
 from django import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from SkillBuddyAI.view import home
+from SkillBuddyAI.view import home, signup, login_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
+    path('signup/',signup,name='signup'),
+    path('login/',login_user,name='login_user'),
 ]
 
 if settings.DEBUG:
