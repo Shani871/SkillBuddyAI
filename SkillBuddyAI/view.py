@@ -36,3 +36,5 @@ def login_user(request):
             messages.error(request, 'Invalid username or password.')
     return render(request, 'login.html')
 
+def TaskManager(request):
+    return render(request, 'TaskManager.html')

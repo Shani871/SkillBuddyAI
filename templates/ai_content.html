@@ -1,0 +1,12 @@
+<!-- ai_content.html -->
+<form method="POST">
+    {% csrf_token %}
+    <label for="prompt">Enter a prompt for AI:</label>
+    <input type="text" name="prompt" id="prompt" required>
+    <button type="submit">Generate Content</button>
+</form>
+
+{% if response %}
+    <h3>AI Response:</h3>
+    <p>{{ response }}</p>
+{% endif %}

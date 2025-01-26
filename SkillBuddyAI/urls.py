@@ -1,18 +1,18 @@
-
-
-from django import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
-from SkillBuddyAI.view import home, signup, login_user
+from SkillBuddyAI.view import home, signup, login_user, TaskManager
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
-    path('signup/',signup,name='signup'),
-    path('login/',login_user,name='login_user'),
+    path('signup/', signup, name='signup'),
+    path('login/', login_user, name='login_user'),
+    path('TaskManager/', TaskManager, name='TaskManager'),
+ path("chatbot/", include("chatbot.urls")),
+
 ]
 
 if settings.DEBUG:

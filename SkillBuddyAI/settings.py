@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+ # Make sure to import 'environ' here
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -106,3 +107,16 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'templates/assets')]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# This loads the API key from the environment variable
+
+# settings.py
+
+
+
+
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
+GOOGLE_API_KEY = "AIzaSyDnY68YTXLjrLYv0548dVetXRBEt0hQK1A"
