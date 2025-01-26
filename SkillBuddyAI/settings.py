@@ -120,3 +120,8 @@ env = environ.Env()
 environ.Env.read_env()
 
 GOOGLE_API_KEY = "AIzaSyDnY68YTXLjrLYv0548dVetXRBEt0hQK1A"
+
+
+# This is the login redirect URL
+LOGIN_REDIRECT_URL = '/profile/'
+LOGOUT_REDIRECT_URL = '/'
