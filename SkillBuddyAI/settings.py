@@ -19,6 +19,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Task',
     'chatbot',
     'SkillBuddyAI.apps.SkillBuddyAIConfig',
     'django.contrib.admin',

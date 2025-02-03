@@ -1,15 +1,163 @@
-<h1>My Tasks</h1>
-<a href="{% url 'task_create' %}" class="btn btn-primary">Create New Task</a>
-<ul>
-    {% for task in tasks %}
-    <li>
-        <strong>{{ task.title }}</strong> - Due: {{ task.due_date }} -
-        {% if task.completed %}✔ Completed{% else %}❌ Not Completed{% endif %}
-        <a href="{% url 'task_update' task.pk %}">Edit</a> |
-        <form method="post" action="{% url 'task_delete' task.pk %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-    </li>
-    {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List and Progress Chart</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        h2 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .list-group-item {
+            font-size: 1.1rem;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-group-item a {
+            margin-left: 5px;
+        }
+
+        .btn-sm {
+            font-size: 0.9rem;
+            padding: 5px 10px;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        canvas {
+            height: 300px;
+            width: 100% !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">SkillBuddyAI</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'task_list' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'add_task' %}">Add Task</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row justify-content-between">
+        <!-- Task List Section -->
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-primary">Task List</h2>
+                    <ul class="list-group">
+                        {% for task in tasks %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ task.title }} ({{ task.status }})
+                                <div>
+                                    <!-- Update and Delete links in the dropdown -->
+                                    <a href="{% url 'update_task' task.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Chart Section -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-primary">Progress Chart</h2>
+                    <canvas id="taskChart"></canvas>
+                    <!-- Button to update chart -->
+                    <button class="btn btn-primary mt-3" id="updateChartBtn">Update Chart Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let taskChart;
+
+    // Function to update the chart
+    function updateChart(data) {
+        const ctx = document.getElementById('taskChart').getContext('2d');
+        if (taskChart) {
+            taskChart.destroy(); // Destroy previous chart
+        }
+
+        taskChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Completed', 'Pending', 'In Progress'],
+                datasets: [{
+                    data: [data.completed, data.pending, data.in_progress], // Sample data
+                    backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+                }]
+            },
+        });
+    }
+
+    // Initial fetch for chart data
+    fetch("{% url 'get_chart_data' %}")
+        .then(response => response.json())
+        .then(data => {
+            updateChart(data);
+        });
+
+    // Event listener for the update chart button
+    document.getElementById('updateChartBtn').addEventListener('click', function() {
+        fetch("{% url 'get_chart_data' %}")
+            .then(response => response.json())
+            .then(data => {
+                updateChart(data);
+            });
+    });
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
