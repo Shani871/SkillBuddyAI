@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "npm" # Change to your package manager (e.g., "pip", "maven", "gradle", "composer")
+    directory: "/" # Root directory where the package file (package.json, requirements.txt, etc.) is located
+    schedule:
+      interval: "weekly" # Runs every week
