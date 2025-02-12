@@ -17,6 +17,8 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),  # Logout page
     path('profile/', profile, name='profile'),  # Profile page
     path('tasks/', include('Task.urls')),
+path('', include('face_recognition.urls')),
+    path('api/', include('chatbot.urls')),
 
 ]
 

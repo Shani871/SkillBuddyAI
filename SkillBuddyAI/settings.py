@@ -19,6 +19,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'face_recognition',
     'Task',
     'chatbot',
     'SkillBuddyAI.apps.SkillBuddyAIConfig',
@@ -121,7 +122,8 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
-GOOGLE_API_KEY = "AIzaSyDnY68YTXLjrLYv0548dVetXRBEt0hQK1A"
+import os
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyDMWKOfxiutHYNN78f0BA9qw0C2E4KLG7A")
 
 
 # This is the login redirect URL
