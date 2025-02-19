@@ -19,9 +19,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'face_recognition',
-    'Task',
     'chatbot',
+    'face',
     'SkillBuddyAI.apps.SkillBuddyAIConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -118,14 +117,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-import environ
-env = environ.Env()
-environ.Env.read_env()
 
-import os
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyDMWKOfxiutHYNN78f0BA9qw0C2E4KLG7A")
 
 
 # This is the login redirect URL
 LOGIN_REDIRECT_URL = '/profile/'
 LOGOUT_REDIRECT_URL = '/'
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+GEMINI_API_KEY = os.getenv("AIzaSyDmZZR-GpCrnLjRz62PcxHqClsd1eWZffE")

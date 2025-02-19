@@ -1,0 +1,35 @@
+<h2>Academic Assistance</h2>
+<button onclick="fetchMaterials()">Load Study Materials</button>
+<ul id="materials-list"></ul>
+
+<h3>Ask a Question</h3>
+<label for="question"></label><input type="text" id="question" placeholder="Enter your question">
+<button onclick="askQuestion()">Ask</button>
+<p id="answer"></p>
+
+<script>
+    function fetchMaterials() {
+        fetch("/get_study_materials/")
+        .then(response => response.json())
+        .then(data => {
+            let list = document.getElementById("materials-list");
+            list.innerHTML = "";
+            data.forEach(item => {
+                list.innerHTML += `<li>${item.title} - <a href="${item.file}">Download</a></li>`;
+            });
+        });
+    }
+
+    function askQuestion() {
+        let question = document.getElementById("question").value;
+        fetch("/answer_query/", {
+            method: "POST",
+            body: new URLSearchParams({question: question}),
+            headers: {"Content-Type": "application/x-www-form-urlencoded"}
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("answer").innerText = "Answer: " + data.answer;
+        });
+    }
+</script>
